@@ -1,0 +1,65 @@
+ #!/bin/bash
+ total=0
+ while true; do
+ read-p "Ingrese la calificacion del estudiante 1 (0-100): " nota1
+ if [[ $nota1 =~ ^[0-9]+$ ]] && [ "$nota1"-ge 0 ] && [ "$nota1"-le 100 ]; then
+ total=$((total + nota1))
+ break
+ else
+ echo "Por favor, ingrese un número valido entre 0 y 100."
+ fi
+ done
+ while true; do
+ read-p "Ingrese la calificacion del estudiante 2 (0-100): " nota2
+ if [[ $nota2 =~ ^[0-9]+$ ]] && [ "$nota2"-ge 0 ] && [ "$nota2"-le 100 ]; then
+ total=$((total + nota2))
+ break
+ else
+ echo "Por favor, ingrese un número valido entre 0 y 100."
+ fi
+ done
+ while true; do
+ read-p "Ingrese la calificacion del estudiante 3 (0-100): " nota3
+ if [[ $nota3 =~ ^[0-9]+$ ]] && [ "$nota3"-ge 0 ] && [ "$nota3"-le 100 ]; then
+ total=$((total + nota3))
+ break
+ else
+ echo "Por favor, ingrese un número valido entre 0 y 100."
+ fi
+ done
+ while true; do
+ read-p "Ingrese la calificacion del estudiante 4 (0-100): " nota4
+ if [[ $nota4 =~ ^[0-9]+$ ]] && [ "$nota4"-ge 0 ] && [ "$nota4"-le 100 ]; then
+ total=$((total + nota4))
+ break
+ else
+ echo "Por favor, ingrese un número valido entre 0 y 100."
+ fi
+ done
+while true; do
+ read-p "Ingrese la calificacion del estudiante 5 (0-100): " nota5
+ if [[ $nota5 =~ ^[0-9]+$ ]] && [ "$nota5"-ge 0 ] && [ "$nota5"-le 100 ]; then
+ total=$((total + nota5))
+ break
+ else
+ echo "Por favor, ingrese un número valido entre 0 y 100."
+ fi
+ done
+ prom=$((total / 5))
+ clasificar() {
+ if [ "$1"-ge 90 ]; then
+ echo "Excelente"
+ elif [ "$1"-ge 70 ]; then
+ echo "Bueno"
+ elif [ "$1"-ge 50 ]; then
+ echo "Regular"
+ else
+ echo "Insuficiente"
+ fi
+ }
+ echo "Promedio de las calificaciones: $prom"
+ for i in {1..5}; do
+ eval "nota=\$nota$i"
+ var=$(clasificar $nota)
+ echo "Estudiante $i: Nota = $nota, Clasificacion = $var"
+ done

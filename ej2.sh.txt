@@ -1,0 +1,34 @@
+ #!/bin/bash
+ directorio="/mnt/ej2"
+ dir="/home/usuario/backup/$(date +%Y-%m-%d)"
+ resumen="$dir/resumen.txt"
+ total=0
+ busqueda=$(find "$directorio"-type f-name "*.txt"-mtime-7)
+ filtro=()
+ for archivo in $busqueda; do
+ if grep-q "proyecto" "$archivo"; then
+ filtro+=("$archivo")
+ fi
+ done
+ if [ ${#filtro[@]}-eq 0 ]; then
+ echo "No se encontraron archivos."
+ exit 1
+ fi
+ mkdir-p "$dir"
+ for archivo in "${filtro[@]}"; do
+ cp "$archivo" "$dir"
+ done
+ > "$resumen"
+ echo "Archivos copiados:" >> "$resumen"
+ for archivo in "${filtro[@]}"; do
+ nombre=$(basename "$archivo")
+ tam=$(stat-c%s "$archivo")
+ echo "$nombre- $tam bytes" >> "$resumen"
+ done
+ for archivo in "${filtro[@]}"; do
+ palabras=$(wc-w < "$archivo")
+ total=$((total + palabras))
+ done
+ echo "Total de palabras en los archivos: $total" >> "$resumen"
+ echo "Proceso completado."
+ echo "Los archivos se han copiado a $dir y el resumen esta en $resumen."

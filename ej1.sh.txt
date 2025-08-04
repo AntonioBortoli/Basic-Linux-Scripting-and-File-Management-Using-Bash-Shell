@@ -1,0 +1,38 @@
+ #!/bin/bash
+ if [ "$#"-ne 2 ]; then
+ echo "usage: ./ejercicio1.sh <nro_grupo> <nombre_archivo>"
+ exit 1
+ fi
+ nro=$1
+ archivo=$2
+ if [ "$nro"-le 0 ]; then
+ echo "El número de grupo debe ser mayor a 0."
+ exit 1
+ fi
+ if [ !-f "$archivo" ]; then
+ echo "El archivo '$archivo' no existe."
+ exit 1
+ fi
+ echo "Numero de grupo ingresado: $nro. Presiona Ctrl-C para cancelar o ENTER para
+ continuar."
+ read
+ if (( nro % 2 == 0 )); then
+ linea=$(sed-n 2p "$archivo")
+ else
+ linea=$(sed-n 3p "$archivo")
+ fi
+ echo "Linea: $linea"
+ > salida.txt
+ > no_comando.txt
+ for pal in $linea; do
+ if command-v "$pal" > /dev/null 2>&1; then
+ echo "Ejecutando comando: $pal"
+ echo "Comando: $pal" >> salida.txt
+ res=$($pal 2>&1)
+ echo "Resultado: $res" >> salida.txt
+ else
+ echo "No es un comando: $pal"
+ echo "$pal" >> no_comando.txt
+ fi
+ done
+echo "Procesamiento completado. Resultados guardados en salida.txt y no_comando.txt."
