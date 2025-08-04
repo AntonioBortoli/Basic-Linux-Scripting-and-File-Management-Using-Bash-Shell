@@ -1,0 +1,1 @@
+This project introduces key Linux shell concepts through three Bash scripts. It covers argument validation, command execution, file filtering, directory management, and data processing. The goal is to develop proficiency with the Bash shell and command-line tools in a practical Linux environment.
